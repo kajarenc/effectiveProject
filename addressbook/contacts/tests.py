@@ -55,8 +55,9 @@ class ContactListIntegrationTests(LiveServerTestCase):
         Contact.objects.create(first_name="foo", last_name="bar")
 
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
+        last_contact = self.selenium.find_elements_by_css_selector('.contact')[-1].find_element_by_tag_name('a')
         self.assertEqual(
-            self.selenium.find_elements_by_css_selector('.contact')[0].text,
+            last_contact.text,
             'foo bar'
         )
 
@@ -75,8 +76,11 @@ class ContactListIntegrationTests(LiveServerTestCase):
         self.selenium.find_element_by_id('id_email').send_keys('test@example.com')
 
         self.selenium.find_element_by_id('save_contact').click()
+
+        last_contact = self.selenium.find_elements_by_css_selector('.contact')[-1].find_element_by_tag_name('a')
+
         self.assertEqual(
-            self.selenium.find_elements_by_css_selector('.contact')[-1].text,
+            last_contact.text,
             'test contact'
         )
 
