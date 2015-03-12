@@ -13,7 +13,7 @@ class ListContactView(ListView):
 class CreateContactView(CreateView):
     model = Contact
     template_name = 'edit_contact.html'
-    form_class = forms.ContactForm
+ #   form_class = forms.ContactForm
     fields = ['first_name', 'last_name', 'email']
 
     def get_success_url(self):
@@ -28,7 +28,7 @@ class CreateContactView(CreateView):
 class UpdateContactView(UpdateView):
     model = Contact
     template_name = 'edit_contact.html'
-    form_class = forms.ContactForm
+  #  form_class = forms.ContactForm
     fields = ['first_name', 'last_name', 'email']
 
     def get_success_url(self):
