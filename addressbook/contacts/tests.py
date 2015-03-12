@@ -5,7 +5,8 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 from django.test.client import Client
 from django.test.client import RequestFactory
-
+from rebar.testing import flatten_to_dict
+from contacts import forms
 from contacts.models import Contact
 from contacts.views import ListContactView
 # Create your tests here.
@@ -83,5 +84,16 @@ class ContactListIntegrationTests(LiveServerTestCase):
             last_contact.text,
             'test contact'
         )
+
+    class EditContactFormTests(TestCase):
+        def test_mismatch_email_is_invalid(self):
+            form_data = flatten_to_dict(forms.ContactForm)
+            form_data['first_name'] = 'Foo'
+            form_data['last_name'] = 'Bar'
+            form_data['email'] = 'foo@example.com'
+            form_data['confirm_email'] = 'bar@example.com'
+
+            bound_form = forms.ContactForm(data=form_data)
+            self.assert_(bound_form.is_valid())
 
 

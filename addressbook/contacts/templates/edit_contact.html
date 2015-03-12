@@ -15,7 +15,7 @@
     <form action="{{ action }}" method="POST">
         {% csrf_token %}
         <ul>
-            {{ form.as_p }}
+            {{ form.as_ul }}
         </ul>
         <input id="save_contact" type="submit" value="Save"/>
         {% if contact.id %}
